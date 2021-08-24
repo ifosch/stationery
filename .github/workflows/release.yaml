@@ -1,0 +1,65 @@
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16'
+      -
+        name: Run tests
+        run: |
+          go test -v ./... -race -covermode=atomic
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16'
+      -
+        name: Build 
+        run: |
+          scripts/build.sh linux amd64
+          scripts/build.sh windows amd64
+          scripts/build.sh darwin amd64
+      - 
+        name: Release Linux amd64 binaries
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/list.linux_amd64
+          asset_name: list.linux_amd64
+          tag: ${{ github.ref }}
+          overwrite: true
+      - 
+        name: Release Windows amd64 binaries
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/list.windows_amd64
+          asset_name: list.windows_amd64
+          tag: ${{ github.ref }}
+          overwrite: true
+      - 
+        name: Release MacOS amd64 binaries
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/list.darwin_amd64
+          asset_name: list.darwin_amd64
+          tag: ${{ github.ref }}
+          overwrite: true
