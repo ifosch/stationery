@@ -18,10 +18,6 @@ func TestGetService(t *testing.T) {
 			"/tmp/nofile",
 			fmt.Errorf("unable to read client secret file: open /tmp/nofile: no such file or directory"),
 		},
-		{
-			"/tmp/invalid_credentials.json",
-			fmt.Errorf("unable to read client secret file: open /tmp/nofile: no such file or directory"),
-		},
 	}
 
 	for _, tt := range tc {
