@@ -9,7 +9,7 @@ You'll need to get credentials for a [service account](https://support.google.co
 ## Setup
 ### Downloadable binaries
 
-Soon you'll be able to download already compiled binaries for Windows, MacOS, and Linux, on amd64 architecture.
+To get compiled binaries for Windows, MacOS, and Linux, on amd64 architecture, you can go to any of our [releases](https://github.com/ifosch/stationery/releases).
 
 ### From source code
 
