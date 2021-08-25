@@ -43,3 +43,12 @@ Matching files:
  - Resignation letter (1fre23w89y892435_23498hwerfiuhp_3489uhr)
  - Contract letter (1980254tjiewv0_ewqrflikjerw9834_34298ph)
 ```
+
+### Export to HTML
+
+The command `export` exports a document matching the query to HTML. The query must match one single document:
+
+```bash
+$ export "name = 'Resume'"
+<html>...
+```
