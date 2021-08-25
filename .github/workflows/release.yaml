@@ -21,6 +21,9 @@ jobs:
           go test -v ./... -race -covermode=atomic
   release:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        destination_os: [linux, windows, macos]
     steps:
       -
         name: Checkout
@@ -33,33 +36,13 @@ jobs:
       -
         name: Build 
         run: |
-          scripts/build.sh linux amd64
-          scripts/build.sh windows amd64
-          scripts/build.sh darwin amd64
+          scripts/build.sh ${{ matrix.destination_os }} amd64
       - 
-        name: Release Linux amd64 binaries
+        name: Release built binaries
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/list.linux_amd64
-          asset_name: list.linux_amd64
+          file: build/*
           tag: ${{ github.ref }}
           overwrite: true
-      - 
-        name: Release Windows amd64 binaries
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/list.windows_amd64
-          asset_name: list.windows_amd64
-          tag: ${{ github.ref }}
-          overwrite: true
-      - 
-        name: Release MacOS amd64 binaries
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/list.darwin_amd64
-          asset_name: list.darwin_amd64
-          tag: ${{ github.ref }}
-          overwrite: true
+          file_glob: true
