@@ -16,6 +16,24 @@ type Service struct {
 	service *drive.Service
 }
 
+// ExportFile exports the file in the first argument, returning the content in the specified MIME type, as the second argument.
+func (s *Service) ExportFile(file *drive.File, MIMEType string) (content string, err error) {
+	fe := s.service.Files.Export(file.Id, MIMEType)
+
+	resp, err := fe.Download()
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return string(body), nil
+}
+
 // GetFiles receives a query parameter and returns a list of `drive.File`s or an error.
 func (s *Service) GetFiles(q string) (files []*drive.File, err error) {
 	fl, err := s.service.Files.List().Fields("nextPageToken, files(id, name)").Q(q).Do()

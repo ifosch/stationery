@@ -23,6 +23,10 @@ func (ms *MockService) GetFiles(q string) ([]*drive.File, error) {
 	return ms.responses[q], nil
 }
 
+func (ms *MockService) ExportFile(_ *drive.File, _ string) (string, error) {
+	return "", nil
+}
+
 func TestGetFiles(t *testing.T) {
 	tc := []struct {
 		input         string

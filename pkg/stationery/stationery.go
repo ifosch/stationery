@@ -12,6 +12,12 @@ import (
 //  - `GetFiles`: based on a string parameter to specify a query, it returns a list of files metadata, or an error.
 type Service interface {
 	GetFiles(string) ([]*drive.File, error)
+	ExportFile(*drive.File, string) (string, error)
+}
+
+// ExportHTML gets an HTML version of the specified file's content.
+func ExportHTML(svc Service, file *drive.File) (content string, err error) {
+	return svc.ExportFile(file, "text/html")
 }
 
 // BuildFileList creates a printable output from a list of files.
