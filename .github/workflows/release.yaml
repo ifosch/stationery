@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        destination_os: [linux, windows, macos]
+        destination_os: [linux, windows, darwin]
     steps:
       -
         name: Checkout
