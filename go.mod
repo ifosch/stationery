@@ -1,4 +1,4 @@
-module github.com/ifosch/docs
+module github.com/ifosch/stationery
 
 go 1.17
 

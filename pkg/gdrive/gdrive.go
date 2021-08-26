@@ -11,7 +11,7 @@ import (
 )
 
 // Service is an abstraction object for the Google Drive service.
-// It is intended to satisfy `docs.Service` interface.
+// It is intended to satisfy `stationery.Service` interface.
 type Service struct {
 	service *drive.Service
 }
