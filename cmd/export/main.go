@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ifosch/docs/pkg/gdrive"
-	"github.com/ifosch/docs/pkg/stationery"
+	"github.com/ifosch/stationery/pkg/gdrive"
+	"github.com/ifosch/stationery/pkg/stationery"
 )
 
 func main() {
